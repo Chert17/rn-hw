@@ -1,11 +1,29 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import AuthScreen from '@/screens/AuthScreen';
+
+SplashScreen.preventAutoHideAsync();
+SplashScreen.hideAsync();
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Roboto: require('./src/assets/fonts/Roboto-Regular.ttf'),
+    RobotoM: require('./src/assets/fonts/Roboto-Medium.ttf'),
+    RobotoB: require('./src/assets/fonts/Roboto-Black.ttf'),
+  });
+
+  if (!fontsLoaded) return null;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>React Native HW-01</Text>
-      <StatusBar style="auto" />
+      <SafeAreaProvider>
+        <AuthScreen />
+      </SafeAreaProvider>
+      <StatusBar style='dark' />
     </View>
   );
 }
@@ -13,12 +31,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    fontWeight: "800",
-    fontSize: 28,
+    backgroundColor: '#fff',
   },
 });
