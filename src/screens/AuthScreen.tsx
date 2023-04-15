@@ -57,7 +57,10 @@ const AuthScreen: FC = () => {
             <View
               style={{
                 ...styles.container,
-                paddingBottom: !isReg ? 110 : 45 || (isShowKeyboard && 32),
+                paddingBottom:
+                  !isReg && !isShowKeyboard
+                    ? 110
+                    : 45 || (isShowKeyboard && 32),
                 paddingTop: isReg ? 92 : 32,
               }}
             >
