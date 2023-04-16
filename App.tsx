@@ -1,10 +1,12 @@
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import AuthScreen from '@/screens/AuthScreen';
+import { AuthProvider } from '@/context/AuthContext';
+import Navigation from '@/navigation/Navigation';
 
 SplashScreen.preventAutoHideAsync();
 SplashScreen.hideAsync();
@@ -18,10 +20,14 @@ export default function App() {
 
   if (!fontsLoaded) return null;
 
+  // const [isAuth, setIsAuth] = useState(false);
+
   return (
     <View style={styles.container}>
       <SafeAreaProvider>
-        <AuthScreen />
+        <AuthProvider>
+          <Navigation />
+        </AuthProvider>
       </SafeAreaProvider>
       <StatusBar style='dark' />
     </View>

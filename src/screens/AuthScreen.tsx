@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import {
   ImageBackground,
   Keyboard,
@@ -14,7 +14,9 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { UploadAvatar } from '@/components/ui';
+import { AuthContext } from '@/context/AuthContext';
 import { useHideByKeyboard } from '@/hooks/useHideByKeyboard';
+import { useTypedNavigation } from '@/hooks/useTypedNavigation';
 import { Gstyles } from '@/utils/global-styles';
 
 const initialFormState = {
@@ -24,8 +26,11 @@ const initialFormState = {
 };
 
 const AuthScreen: FC = () => {
+  const { setIsAuth } = useContext(AuthContext);
+  const { navigate } = useTypedNavigation();
+
   const [formState, setFormState] = useState(initialFormState);
-  const [isReg, setIsReg] = useState(true);
+  const [isReg, setIsReg] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [activeInput, setActiveInput] = useState('');
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -45,6 +50,8 @@ const AuthScreen: FC = () => {
   const handleSubmit = () => {
     console.log(formState);
     setFormState(initialFormState);
+    setIsAuth(true);
+    navigate('Root');
   };
 
   return (
