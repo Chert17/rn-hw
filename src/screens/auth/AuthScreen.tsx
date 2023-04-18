@@ -89,6 +89,7 @@ const AuthScreen: FC = () => {
                     setFormState((prev) => ({ ...prev, name: value }))
                   }
                   placeholder='Your Name'
+                  placeholderTextColor='#BDBDBD'
                 />
               )}
               <TextInput
@@ -154,7 +155,7 @@ const AuthScreen: FC = () => {
               activeOpacity={0.7}
             >
               <Text style={{ ...Gstyles.mainText, color: '#fff' }}>
-                Sign Up
+                {isReg ? 'Sign Up' : 'Sign In'}
               </Text>
             </TouchableOpacity>
 

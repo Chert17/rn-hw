@@ -24,4 +24,12 @@ export const Gstyles = StyleSheet.create({
     borderRadius: 100,
     paddingVertical: 16,
   },
+  hideComponentWhenKeyboard: {
+    opacity: 0,
+    transform: [{ translateX: 1000 }],
+  },
+  showComponentWhenKeyboardNo: {
+    opacity: 1,
+    transform: [{ translateX: 0 }],
+  },
 });

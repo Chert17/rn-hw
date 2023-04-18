@@ -3,18 +3,13 @@ import { AntDesign } from '@expo/vector-icons';
 import { FC } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { MainRootParamList } from '@/navigation/navigation-types';
+import {
+  MainRootParamList,
+  TypeCommentParams,
+  TypeMapParams,
+} from '@/navigation/navigation-types';
 import { IPost } from '@/types/post-interface';
 import { Gstyles } from '@/utils/global-styles';
-
-type TypeCommentParams = {
-  id: string;
-};
-
-type TypeMapParams = {
-  latitude: number;
-  longitude: number;
-};
 
 interface IPostItem {
   item: IPost;

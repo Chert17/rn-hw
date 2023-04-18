@@ -1,8 +1,10 @@
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useIsFocused } from '@react-navigation/native';
 import { FC, useEffect, useState } from 'react';
 import {
+  Alert,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -26,6 +28,7 @@ const initialLocation: IPostLocation = {
 };
 
 const DefaultScreen: FC = () => {
+  const isFocused = useIsFocused();
   const { navigate } = useTypedNavigation();
   const { params } = useTypedRoute<'DefaultCreatePostScreen'>();
   const { photo, location } = params ?? {};
@@ -44,6 +47,10 @@ const DefaultScreen: FC = () => {
       setLocationData({ latitude, longitude, address: country + ' , ' + city });
   }, [photo, location]);
 
+  useEffect(() => {
+    if (!isFocused) handleDelete();
+  }, [isFocused]);
+
   const handleDelete = () => {
     setPhotoData('');
     setDescrInput('');
@@ -51,6 +58,8 @@ const DefaultScreen: FC = () => {
   };
 
   const handlePublish = () => {
+    if (!photoData) return Alert.alert("You can't send an empty post!");
+
     navigate('DefaultHomeScreen', {
       img: photoData,
       title: descrInput,
