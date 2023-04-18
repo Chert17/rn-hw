@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FC, useContext } from 'react';
 
 import { AuthContext } from '@/context/AuthContext';
-import { AuthScreen, CommentsScreen, MapScreen } from '@/screens';
+import { AuthScreen } from '@/screens';
 
 import BottomMenu from './BottomMenu';
 import { RootStackParamList } from './navigation-types';
@@ -15,17 +15,13 @@ const Navigation: FC = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {!isAuth ? (
+      {!isAuth ? (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name='Auth' component={AuthScreen} />
-        ) : (
-          <>
-            <Stack.Screen name='Root' component={BottomMenu} />
-            <Stack.Screen name='Comments' component={CommentsScreen} />
-            <Stack.Screen name='Map' component={MapScreen} />
-          </>
-        )}
-      </Stack.Navigator>
+        </Stack.Navigator>
+      ) : (
+        <BottomMenu />
+      )}
     </NavigationContainer>
   );
 };

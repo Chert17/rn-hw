@@ -1,5 +1,4 @@
 import { AntDesign } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FC } from 'react';
 
@@ -25,23 +24,6 @@ const BottomMenu: FC = () => {
         options={{
           tabBarIcon: ({ color, size }) => (
             <AntDesign name='home' size={size} color={color} />
-          ),
-          headerShown: true,
-          headerTitleAlign: 'center',
-          headerTitle: 'Publication ',
-          headerTitleStyle: {
-            fontWeight: '500',
-            fontSize: 17,
-            lineHeight: 22,
-            color: '#212121',
-          },
-          headerRight: () => (
-            <MaterialIcons
-              name='logout'
-              size={30}
-              color='#BDBDBD'
-              style={{ marginRight: 16 }}
-            />
           ),
         }}
       />

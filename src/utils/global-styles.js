@@ -16,4 +16,12 @@ export const Gstyles = StyleSheet.create({
     color: '#212121',
     marginBottom: 32,
   },
+  mainBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
+    backgroundColor: '#FF6C00',
+    borderRadius: 100,
+    paddingVertical: 16,
+  },
 });

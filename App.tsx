@@ -23,20 +23,20 @@ export default function App() {
   // const [isAuth, setIsAuth] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <SafeAreaProvider>
+    <SafeAreaProvider>
+      <View style={styles.container}>
         <AuthProvider>
           <Navigation />
         </AuthProvider>
-      </SafeAreaProvider>
+      </View>
       <StatusBar style='dark' />
-    </View>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#E5E5E5',
   },
 });

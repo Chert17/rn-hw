@@ -3,7 +3,7 @@
     "name": "rn-hw-01",
     "slug": "rn-hw-01",
     "version": "1.0.0",
-    "orientation": "default",
+    "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "dark",
     "splash": {
@@ -23,6 +23,20 @@
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(This App) to access your camera."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(This App) to use your location."
+        }
+      ]
+    ]
   }
 }

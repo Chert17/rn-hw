@@ -1,9 +1,9 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import {
-  CompositeScreenProps,
-  NavigatorScreenParams,
-} from '@react-navigation/native';
+import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
+import { IPost } from '@/types/post-interface';
+import { IUploadPostImg } from '@/types/upload-post-img-interface';
 
 declare global {
   namespace ReactNavigation {
@@ -12,10 +12,12 @@ declare global {
 }
 
 export type RootStackParamList = {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Auth: undefined;
+  DefaultHomeScreen: IPost;
+  DefaultCreatePostScreen: IUploadPostImg;
   Comments: { id: string };
-  Map: { id: string };
+  Map: { latitude: number; longitude: number };
+  CameraScreen: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -32,3 +34,5 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
     BottomTabScreenProps<RootTabParamList, Screen>,
     NativeStackScreenProps<RootStackParamList>
   >;
+
+export type MainRootParamList = RootStackParamList & RootTabParamList;
