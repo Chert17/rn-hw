@@ -4,9 +4,9 @@ import { FC } from 'react';
 
 import { CreatePostsScreen, HomeScreen, ProfileScreen } from '@/screens';
 
-import { RootTabParamList } from './navigation-types';
+import { ITabStack } from './tab.nav.types';
 
-const Tab = createBottomTabNavigator<RootTabParamList>();
+const Tab = createBottomTabNavigator<ITabStack>();
 
 const BottomMenu: FC = () => {
   return (

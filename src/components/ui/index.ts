@@ -1,2 +1,2 @@
-export { default as UploadAvatar } from './UploadAvatar';
 export { default as BackBtn } from './BackBtn';
+export { default as LogOutBtn } from './LogOutBtn';

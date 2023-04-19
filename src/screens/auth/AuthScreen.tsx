@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native';
 
-import { UploadAvatar } from '@/components/ui';
+// import { UploadAvatar } from '@/components/ui';
 import { AuthContext } from '@/context/AuthContext';
 import { useHideByKeyboard } from '@/hooks/useHideByKeyboard';
 import { Gstyles } from '@/utils/global-styles';
@@ -54,7 +54,7 @@ const AuthScreen: FC = () => {
     <TouchableWithoutFeedback onPress={handleHideKeyboard}>
       <ImageBackground style={styles.bgImg} source={require('@/assets/bg.jpg')}>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
           <View
             style={{
@@ -64,7 +64,7 @@ const AuthScreen: FC = () => {
               paddingTop: isReg ? 92 : 32,
             }}
           >
-            {isReg && <UploadAvatar />}
+            {/* {isReg && <UploadAvatar />} */}
 
             <Text style={Gstyles.title}>{isReg ? 'Register' : 'Login'}</Text>
             <View

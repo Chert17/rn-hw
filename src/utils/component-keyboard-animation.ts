@@ -36,5 +36,12 @@ export const useComponentKeyboardAnimation = () => {
     }),
   ]);
 
-  return { hideElWhenKeyboardShow, showElWhenKeyboardHide };
+  return {
+    hideElWhenKeyboardShow,
+    showElWhenKeyboardHide,
+    hideOpacity,
+    hideTransformX,
+    showOpacity,
+    showTransformX,
+  };
 };

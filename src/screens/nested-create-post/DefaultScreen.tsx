@@ -6,16 +6,19 @@ import { FC, useEffect, useState } from 'react';
 import {
   Alert,
   Image,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { useHideByKeyboard } from '@/hooks/useHideByKeyboard';
 import { useTypedNavigation } from '@/hooks/useTypedNavigation';
 import { useTypedRoute } from '@/hooks/useTypedRoute';
 import { IPostLocation } from '@/types/post-interface';
@@ -32,6 +35,7 @@ const DefaultScreen: FC = () => {
   const { navigate } = useTypedNavigation();
   const { params } = useTypedRoute<'DefaultCreatePostScreen'>();
   const { photo, location } = params ?? {};
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   const [photoData, setPhotoData] = useState('');
   const [descrInput, setDescrInput] = useState('');
@@ -69,83 +73,96 @@ const DefaultScreen: FC = () => {
     });
   };
 
+  const handleHideKeyboard = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+  };
+
+  useHideByKeyboard(setIsShowKeyboard);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
-          <View style={styles.imgWrapper}>
-            {!photoData ? (
-              <View style={styles.img} />
-            ) : (
-              <Image
-                source={{ uri: photoData }}
-                style={styles.img}
-                resizeMode='contain'
-              />
-            )}
-            <TouchableOpacity
-              style={styles.imgIcon}
-              activeOpacity={0.7}
-              onPress={() => navigate('CameraScreen')}
-            >
-              <MaterialIcons name='add-a-photo' size={24} color='#BDBDBD' />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.inputWrapper}>
-            <TextInput
-              style={{
-                ...Gstyles.mainText,
-                ...styles.input,
-                fontWeight: '500',
-              }}
-              value={descrInput}
-              onChangeText={(value) => setDescrInput(value)}
-              placeholder='Description'
-              placeholderTextColor='#BDBDBD'
-            />
-            <View style={styles.locationInputWrapper}>
+        <TouchableWithoutFeedback onPress={handleHideKeyboard}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          >
+            <View style={styles.imgWrapper}>
+              {!photoData ? (
+                <View style={styles.img} />
+              ) : (
+                <Image
+                  source={{ uri: photoData }}
+                  style={styles.img}
+                  resizeMode='contain'
+                />
+              )}
+              <TouchableOpacity
+                style={styles.imgIcon}
+                activeOpacity={0.7}
+                onPress={() => navigate('CameraScreen')}
+              >
+                <MaterialIcons name='add-a-photo' size={24} color='#BDBDBD' />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.inputWrapper}>
               <TextInput
                 style={{
                   ...Gstyles.mainText,
                   ...styles.input,
-                  paddingLeft: 30,
+                  fontWeight: '500',
                 }}
-                value={locationData.address}
-                onChangeText={(value) =>
-                  setLocationData((prev) => ({ ...prev, address: value }))
-                }
-                placeholder={!locationData.address ? 'Location' : ''}
+                value={descrInput}
+                onChangeText={(value) => setDescrInput(value)}
+                onFocus={() => setIsShowKeyboard(true)}
+                placeholder='Description'
                 placeholderTextColor='#BDBDBD'
               />
-              <Ionicons
-                name='location-outline'
-                style={styles.locationIcon}
-                size={24}
-                color='#BDBDBD'
-              />
+              <View style={styles.locationInputWrapper}>
+                <TextInput
+                  style={{
+                    ...Gstyles.mainText,
+                    ...styles.input,
+                    paddingLeft: 30,
+                  }}
+                  value={locationData.address}
+                  onChangeText={(value) =>
+                    setLocationData((prev) => ({ ...prev, address: value }))
+                  }
+                  onFocus={() => setIsShowKeyboard(true)}
+                  placeholder={!locationData.address ? 'Location' : ''}
+                  placeholderTextColor='#BDBDBD'
+                />
+                <Ionicons
+                  name='location-outline'
+                  style={styles.locationIcon}
+                  size={24}
+                  color='#BDBDBD'
+                />
+              </View>
             </View>
-          </View>
-        </KeyboardAvoidingView>
-        <TouchableOpacity
-          style={{
-            ...Gstyles.mainBtn,
-            // display: isShowKeyboard ? 'none' : 'flex',
-          }}
-          // onPress={handleSubmit}
-          activeOpacity={0.7}
-          onPress={handlePublish}
-        >
-          <Text style={{ ...Gstyles.mainText, color: '#fff' }}>Publish</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.deleteBtn}
-          activeOpacity={0.7}
-          onPress={handleDelete}
-        >
-          <AntDesign name='delete' size={30} color='#BDBDBD' />
-        </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{ ...Gstyles.mainBtn }}
+              activeOpacity={0.7}
+              onPress={handlePublish}
+            >
+              <Text style={{ ...Gstyles.mainText, color: '#fff' }}>
+                Publish
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                ...styles.deleteBtn,
+                display: !isShowKeyboard ? 'flex' : 'none',
+              }}
+              activeOpacity={0.7}
+              onPress={handleDelete}
+            >
+              <AntDesign name='delete' size={30} color='#BDBDBD' />
+            </TouchableOpacity>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
       </View>
     </SafeAreaView>
   );

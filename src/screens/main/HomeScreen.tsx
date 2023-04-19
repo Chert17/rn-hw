@@ -1,10 +1,8 @@
-import { MaterialIcons } from '@expo/vector-icons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useContext } from 'react';
 import { FC } from 'react';
-import { TouchableOpacity } from 'react-native';
 
-import { BackBtn } from '@/components/ui';
+import { BackBtn, LogOutBtn } from '@/components/ui';
 import { AuthContext } from '@/context/AuthContext';
 import { useTypedNavigation } from '@/hooks/useTypedNavigation';
 import { RootStackParamList } from '@/navigation/navigation-types';
@@ -40,17 +38,7 @@ const HomeScreen: FC = () => {
           headerTitle: 'Publications',
           headerRight: () => {
             return isAuth ? (
-              <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => setIsAuth(false)}
-              >
-                <MaterialIcons
-                  name='logout'
-                  size={30}
-                  color='#BDBDBD'
-                  style={{ marginRight: 16 }}
-                />
-              </TouchableOpacity>
+              <LogOutBtn logout={() => setIsAuth(false)} />
             ) : null;
           },
           headerLeft: () => null,
